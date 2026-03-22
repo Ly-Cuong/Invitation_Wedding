@@ -9,7 +9,7 @@ const AUTOPLAY_MS        = 5000;   // Hero slider tự động chuyển mỗi X 
 const SWIPE_THRESHOLD    = 80;     // Kéo tối thiểu để chuyển slide (px)
 const HEART_SPAWN_CHANCE = 0.05;   // Xác suất sinh tim mỗi frame
 const HEART_MAX          = 60;     // Số tim tối đa đồng thời
-const REVEAL_THRESHOLD   = 0.12;   // Ngưỡng IntersectionObserver
+const REVEAL_THRESHOLD   = 0.08;   // Ngưỡng IntersectionObserver (giảm xuống để nhạy hơn)
 
 // 🔧 Dán URL Google Apps Script vào đây (xem file google-apps-script.js để biết cách lấy)
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbySEb6Gza8VaFXvlBvNccAVOzy84h0ZOtIbM76s2DN1LZ0CWRsSrop0q2Se8h5WpSfgxg/exec';

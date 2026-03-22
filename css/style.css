@@ -122,7 +122,12 @@ body { font-family: 'Lora', serif; color: var(--text); background: var(--cream);
 .section-header { text-align: center; margin-bottom: 15px; }
 
 /* Scroll reveal */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+.reveal { 
+  opacity: 0; 
+  transform: translateY(30px); 
+  transition: opacity .8s ease, transform .8s ease;
+  will-change: transform, opacity; /* Bấm sẵn GPU cho hiệu ứng reveal */
+}
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 /* ===========================================================
@@ -279,6 +284,7 @@ body { font-family: 'Lora', serif; color: var(--text); background: var(--cream);
   -webkit-backface-visibility: hidden;
   transform: scale(1) translateZ(0);
   transition: transform 6s linear;
+  image-rendering: -webkit-optimize-contrast; /* Giúp ảnh nét hơn khi zoom nhẹ */
 }
 .hero-photo-img[src*="3.jpg"] {
   object-position: center 24%;
@@ -684,6 +690,8 @@ body { font-family: 'Lora', serif; color: var(--text); background: var(--cream);
   object-position: center;
   display: block;
   transition: transform .5s ease;
+  will-change: transform;
+  image-rendering: -webkit-optimize-contrast;
 }
 .tl2-photo:hover .tl2-photo-img { transform: scale(1.05); }
 
@@ -755,10 +763,10 @@ body { font-family: 'Lora', serif; color: var(--text); background: var(--cream);
   .gallery-item { width: calc(33.333% - 10px); }
 }
 
-/* Responsive grid */
 @media (max-width: 768px) {
   .gallery-item { width: calc(50% - 7.5px); }
-  .tl2-item { flex-direction: column !important; gap: 20px; }
+  .tl2-item { flex-direction: column !important; gap: 30px; align-items: stretch; }
+  .tl2-content, .tl2-photo { width: 100%; flex: none; }
   .tl2-content { padding: 0; text-align: center !important; }
   .tl2-dot { display: none; }
   .tl2-desc { text-align-last: center !important; }
