@@ -1,0 +1,10 @@
+Options -Indexes
+RewriteEngine On
+
+# ── Cho phép truy cập file/thư mục thực tế ──────────────
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# ── / hoặc /index  →  index.html ────────────────────────
+RewriteRule ^index/?$ index.html [L]

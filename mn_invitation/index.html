@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản Lý Xác Nhận Tham Dự – Văn Cường &amp; Hải Lý</title>
+  <!-- Không cho search engine index trang admin -->
+  <meta name="robots" content="noindex, nofollow" />
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body>
+
+  <!-- ██ HEADER ██ -->
+  <header class="admin-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <span class="brand-icon" aria-hidden="true">💍</span>
+        <div>
+          <div class="brand-title">Quản Lý Danh Sách</div>
+          <span class="brand-sub">Văn Cường &amp; Hải Lý</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="../index.html" class="btn btn-outline-white">← Về Thiệp</a>
+        <button class="btn btn-white" id="btn-refresh">🔄 Tải mới</button>
+        <button class="btn btn-white" id="btn-export">⬇ Xuất CSV</button>
+        <button class="btn btn-danger" id="btn-clear">🗑 Xóa tất cả</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ██ MAIN ██ -->
+  <main class="main">
+
+    <!-- Stats -->
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat-card all">
+        <span class="stat-icon" aria-hidden="true">📋</span>
+        <div>
+          <div class="stat-label">Tổng phản hồi</div>
+          <div class="stat-num" id="stat-total">0</div>
+          <div class="stat-desc">Đã gửi xác nhận</div>
+        </div>
+      </div>
+      <div class="stat-card yes">
+        <span class="stat-icon" aria-hidden="true">✅</span>
+        <div>
+          <div class="stat-label">Sẽ tham dự</div>
+          <div class="stat-num" id="stat-yes">0</div>
+          <div class="stat-desc">Khách xác nhận đến</div>
+        </div>
+      </div>
+      <div class="stat-card no">
+        <span class="stat-icon" aria-hidden="true">❌</span>
+        <div>
+          <div class="stat-label">Không đến</div>
+          <div class="stat-num" id="stat-no">0</div>
+          <div class="stat-desc">Vắng mặt có lý do</div>
+        </div>
+      </div>
+      <div class="stat-card guests">
+        <span class="stat-icon" aria-hidden="true">👥</span>
+        <div>
+          <div class="stat-label">Tổng khách</div>
+          <div class="stat-num" id="stat-guests">0</div>
+          <div class="stat-desc">Người + người đi cùng</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="search-box">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="text" id="search-input" placeholder="Tìm theo tên, số điện thoại..." />
+      </div>
+      <select class="filter-select" id="filter-attend" aria-label="Lọc theo trạng thái">
+        <option value="">Tất cả</option>
+        <option value="yes">✅ Sẽ tham dự</option>
+        <option value="no">❌ Không đến</option>
+      </select>
+      <select class="filter-select" id="filter-sort" aria-label="Sắp xếp">
+        <option value="newest">Mới nhất trước</option>
+        <option value="oldest">Cũ nhất trước</option>
+        <option value="name">Tên A→Z</option>
+      </select>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <div class="table-head">
+        <div class="table-head-title">📋 Danh Sách Xác Nhận</div>
+        <span class="table-count" id="result-count">0 kết quả</span>
+      </div>
+      <div id="table-body-wrap">
+        <!-- Rendered by admin.js -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ██ CONFIRM DIALOG ██ -->
+  <div class="confirm-overlay" id="confirm-overlay" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+    <div class="confirm-box">
+      <span class="confirm-icon" id="confirm-icon" aria-hidden="true">⚠️</span>
+      <div class="confirm-title" id="confirm-title">Xác nhận</div>
+      <div class="confirm-sub"  id="confirm-sub">Bạn có chắc chắn không?</div>
+      <div class="confirm-actions">
+        <button class="btn-cancel" id="btn-cancel">Huỷ</button>
+        <button class="btn-confirm-del" id="confirm-ok">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ██ SNACK BAR ██ -->
+  <div class="snack" id="snack" role="status" aria-live="polite"></div>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>
