@@ -36,15 +36,16 @@ const HEART_COLORS = [
 ];
 
 function createHeart() {
-  const color = HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)];
+  const colorTemplate = HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)];
+  const opacity = 0.4 + Math.random() * 0.5;
   return {
     x:        Math.random() * canvas.width,
     y:        -20,
     size:     6 + Math.random() * 14,
     speed:    0.6 + Math.random() * 1.2,
     drift:    (Math.random() - 0.5) * 0.8,
-    opacity:  0.4 + Math.random() * 0.5,
-    color:    color,
+    opacity:  opacity,
+    fillStyle: colorTemplate.replace('VAL', opacity),
     rotation: Math.random() * Math.PI * 2,
     rotSpeed: (Math.random() - 0.5) * 0.04,
   };
@@ -54,8 +55,9 @@ function drawHeart(h) {
   ctx.save();
   ctx.translate(h.x, h.y);
   ctx.rotate(h.rotation);
-  ctx.scale(h.size / 10, h.size / 10);
-  ctx.fillStyle = h.color.replace('VAL', h.opacity);
+  const s = h.size / 10;
+  ctx.scale(s, s);
+  ctx.fillStyle = h.fillStyle;
   ctx.beginPath();
   ctx.moveTo(0, 0);
   ctx.bezierCurveTo(-5, -5, -10, 0, 0, 8);
@@ -356,11 +358,18 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 (function initHeaderScroll() {
   const header = document.getElementById('site-header');
   if (!header) return;
+  let ticking = false;
   window.addEventListener('scroll', function() {
-    if (window.scrollY > 40) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (window.scrollY > 40) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        ticking = false;
+      });
+      ticking = true;
     }
   }, { passive: true });
 })();
