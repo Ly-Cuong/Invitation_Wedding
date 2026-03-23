@@ -646,22 +646,34 @@ section {
   background: white; 
 }
 .gallery-grid {
-  max-width: 1200px; margin: 40px auto 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  max-width: 1200px;
+  margin: 40px auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px;
 }
 .gallery-item {
-  position: relative; border-radius: 12px; overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
   box-shadow: 0 4px 15px rgba(0,0,0,.08);
-  width: calc(25% - 11.25px);
   cursor: pointer;
+  aspect-ratio: 3 / 4;
+}
+
+/* Featured Large Image (Top Left) */
+.gallery-item:nth-child(1) {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: auto; /* Let it fill the 2x2 grid space */
 }
 
 .gallery-img {
-  width: 100%; height: auto;
-  display: block; transition: transform .6s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s ease;
 }
 .gallery-item:hover .gallery-img { transform: scale(1.08); }
 
@@ -675,13 +687,27 @@ section {
 .gallery-overlay span { font-size: 2rem; transform: scale(0); transition: transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .gallery-item:hover .gallery-overlay span { transform: scale(1); }
 
-/* Tablet */
+/* Tablet - 3 Columns */
 @media (max-width: 900px) {
-  .gallery-item { width: calc(33.333% - 10px); }
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  /* On 3-col, maybe only span 2 rows/cols if it looks okay, or reset */
+  .gallery-item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
 }
 
 @media (max-width: 768px) {
-  .gallery-item { width: calc(50% - 7.5px); }
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .gallery-item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
   .tl2-item { flex-direction: column !important; gap: 30px; align-items: stretch; }
   .tl2-content, .tl2-photo { width: 100%; flex: none; }
   .tl2-content { padding: 0; text-align: center !important; }
